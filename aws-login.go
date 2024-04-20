@@ -63,12 +63,14 @@ func openConsole(stdout bool, duration time.Duration, profile string) {
 
 	requestParameters = "?Action=login&Destination=" + url.QueryEscape("https://console.aws.amazon.com/") +
 		"&SigninToken=" + tokenResponse.SigninToken + "&Issuer=" + url.QueryEscape("https://example.com")
-	requestURL = "https://signin.aws.amazon.com/federation" + requestParameters
+	requestURL = "https://us-east-1.signin.aws.amazon.com/federation" + requestParameters
+
+	federateURL := "https://us-east-1.signin.aws.amazon.com/oauth?Action=logout&redirect_uri=" + url.QueryEscape(requestURL)
 
 	if stdout {
-		fmt.Println(requestURL)
+		fmt.Println(federateURL)
 	} else {
-		err = browser.OpenURL(requestURL)
+		err = browser.OpenURL(federateURL)
 		if err != nil {
 			log.Fatalf("Failed to open browser: %v", err)
 		}
