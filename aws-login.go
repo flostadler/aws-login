@@ -38,7 +38,6 @@ func openConsole(stdout bool, duration time.Duration, profile string) {
 	requestParameters := fmt.Sprintf("?Action=getSigninToken&DurationSeconds=%d&Session=%s", duration/time.Second, url.QueryEscape(string(credentialsJSON)))
 	requestURL := "https://signin.aws.amazon.com/federation" + requestParameters
 
-	print(requestURL)
 	response, err := http.Get(requestURL)
 	if err != nil {
 		log.Fatalf("Failed to get Signin Token from AWS: %v", err)
